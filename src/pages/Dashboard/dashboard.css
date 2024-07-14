@@ -79,6 +79,12 @@
     border-radius: 3px;
     color: #FFF;
   }
+
+  .dashboard span {
+    margin: 2em 0;
+    font-size: 1.2em;
+    font-weight: 600;
+  }
   
   @media screen and (max-width: 600px){
       table{
