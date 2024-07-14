@@ -30,6 +30,16 @@
     align-items: center;
     flex-direction: column;
   }
+
+  .btn-more {
+    margin: 1.5em 0;
+    padding: 0.5em 1em;
+    background-color: #181c2e;
+    border: 0;
+    border-radius: 5px;
+    font-size: 1.1em;
+    color: #FFF;
+  }
   
   table{
     border: 1px solid #CCC;
