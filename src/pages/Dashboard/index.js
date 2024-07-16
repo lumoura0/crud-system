@@ -9,6 +9,7 @@ import { db } from '../../services/firebaseConnection'
 import { collection, getDocs, orderBy, limit, startAfter, query } from 'firebase/firestore'
 
 import { format } from 'date-fns'
+import Modal from '../../components/Modal'
 
 import './dashboard.css'
 
@@ -23,6 +24,9 @@ export default function Dashboard() {
   const [isEmpty, setIsEmpty] = useState(false)
   const [lastDocs, setLastDocs] = useState()
   const [loadingMore, setLoadingMore] = useState(false)
+
+  const [showPostModal, setShowPostModal] = useState(false)
+  const [detail, setDetail] = useState()
 
   useEffect(() => {
     async function loadChamados() {
@@ -97,6 +101,11 @@ export default function Dashboard() {
 
   }
 
+  function toggleModal(item) {
+    setShowPostModal(!showPostModal)
+    setDetail(item)
+  }
+
   return (
     <div>
       <Header />
@@ -144,12 +153,12 @@ export default function Dashboard() {
                         </td>
                         <td data-label="Cadastrado">{item.createdFormat}</td>
                         <td data-label="#">
-                          <button className="action" style={{ backgroundColor: "#3583f6" }}>
+                          <button onClick={() => toggleModal(item)} className="action" style={{ backgroundColor: "#3583f6" }}>
                             <FiSearch color="#FFF" size={17} />
                           </button>
-                          <button className="action" style={{ backgroundColor: "#f6a935" }}>
+                          <Link to={`/new/${item.id}`} className="action" style={{ backgroundColor: "#f6a935" }}>
                             <FiEdit2 color="#FFF" size={17} />
-                          </button>
+                          </Link>
                         </td>
                       </tr>
                     )
@@ -163,6 +172,13 @@ export default function Dashboard() {
           )}
         </>
       </div>
+
+      {showPostModal && (
+        <Modal
+          conteudo={detail}
+          close={() => setShowPostModal(!showPostModal)}
+        />
+      )}
     </div>
   )
 }
